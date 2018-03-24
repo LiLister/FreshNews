@@ -1,10 +1,10 @@
 package com.dream.freshnews.topheadlines
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.dream.freshnews.BaseActivity
 import com.dream.freshnews.R
 
-class TopHeadlinesActivity : AppCompatActivity() {
+class TopHeadlinesActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
