@@ -23,6 +23,7 @@ import com.dream.freshnews.data.source.NewsRepository.Companion.KEY_SOURCE
 import com.dream.freshnews.data.source.local.NewsLocalDataSource
 import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
 import com.dream.freshnews.util.DateTimeUtil
+import com.dream.freshnews.util.DialogHelper
 import kotlinx.android.synthetic.main.activity_top_headlines.*
 import org.jetbrains.anko.onClick
 
@@ -51,9 +52,16 @@ class TopHeadlinesActivity : BaseActivity() {
         val newsRepository = NewsRepository.getInstance(NewsLocalDataSource(), NewsRemoteDataSource())
 
         newsRepository.getTopHeadlines(constructParameters(), {
-            topHeadinesAdapter.setData(it)
+            ok, errMsg, data ->
 
             hideLoading()
+
+            if (!ok) {
+                DialogHelper.showSimpleInfoDialog(this.fragmentManager, resources.getString(
+                    R.string.failed_to_load_top_headlines, "" +errMsg))
+            } else {
+                topHeadinesAdapter.setData(data)
+            }
         })
     }
 

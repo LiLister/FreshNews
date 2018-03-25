@@ -2,6 +2,7 @@ package com.dream.freshnews.data.source.remote
 
 import com.dream.freshnews.data.Source
 import com.dream.freshnews.data.TopHeadline
+import com.dream.freshnews.data.source.MyCallback
 import com.dream.freshnews.data.source.NewsDataSource
 import com.dream.freshnews.data.source.remote.response.SourcesResponse
 import com.dream.freshnews.data.source.remote.response.TopHeadlinesResponse
@@ -25,22 +26,23 @@ class NewsRemoteDataSource: NewsDataSource {
         newsApi = ApiCreator.instance().createApi(NewsApi::class.java, END_POINT)
     }
 
-    override fun getSources(callback: (data: List<Source>) -> Unit) {
+    override fun getSources(callback: MyCallback<List<Source>>) {
         val params = mapOf(KEY_API_KEY to API_KEY)
         newsApi.getSources(params).enqueue(object: Callback<SourcesResponse> {
             override fun onFailure(call: Call<SourcesResponse>?, t: Throwable?) {
-                callback(listOf())
+                val errorMsg = t?.localizedMessage ?: "failed to get sources"
+                callback(false, errorMsg, listOf())
             }
 
             override fun onResponse(call: Call<SourcesResponse>?, response: Response<SourcesResponse>?) {
                 val result = response?.body()?.sources ?: listOf()
 
-                callback(result)
+                callback(true, null, result)
             }
         })
     }
 
-    override fun getTopHeadlines(params: Map<String, String>, callback: (data: List<TopHeadline>) -> Unit) {
+    override fun getTopHeadlines(params: Map<String, String>, callback: MyCallback<List<TopHeadline>>) {
         // TODO check whether there more articles available
 
         val parameters = mutableMapOf<String, String>()
@@ -49,13 +51,14 @@ class NewsRemoteDataSource: NewsDataSource {
 
         newsApi.getTopHeadlines(parameters).enqueue(object: Callback<TopHeadlinesResponse> {
             override fun onFailure(call: Call<TopHeadlinesResponse>?, t: Throwable?) {
-                callback(listOf())
+                val errorMsg = t?.localizedMessage ?: "failed to get sources"
+                callback(false, errorMsg, listOf())
             }
 
             override fun onResponse(call: Call<TopHeadlinesResponse>?, response: Response<TopHeadlinesResponse>?) {
                 val result = response?.body()?.articles ?: listOf()
 
-                callback(result)
+                callback(true, null, result)
             }
         })
     }

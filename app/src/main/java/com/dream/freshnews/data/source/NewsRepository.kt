@@ -14,25 +14,42 @@ class NewsRepository private constructor(): NewsDataSource {
     private lateinit var newsLocalDataSource: NewsLocalDataSource
     private lateinit var newsRemoteDataSource: NewsRemoteDataSource
 
-    override fun getSources(callback: (data: List<Source>) -> Unit) {
+    override fun getSources(callback: MyCallback<List<Source>>) {
         newsLocalDataSource.getSources({
-            if (it.size == 0) {
+            ok, errorMsg, data ->
+            if (ok && !data.isEmpty()) {
+                callback(ok, errorMsg, data)
+            } else {
                 newsRemoteDataSource.getSources({
-                    // TODO cache the sources to local data source
+                    rdsOk, rdsErrMsg, rdsData ->
+                    // cache the sources to local data source
+                    if (rdsOk && !rdsData.isEmpty()) {
+                        newsLocalDataSource.updateListSource(rdsData)
+                    }
 
-                    callback(it)
+                    callback(rdsOk, rdsErrMsg, rdsData)
                 })
             }
         })
     }
 
-    override fun getTopHeadlines(params: Map<String, String>, callback: (data: List<TopHeadline>) -> Unit) {
+    override fun getTopHeadlines(params: Map<String, String>, callback: MyCallback<List<TopHeadline>>) {
         newsLocalDataSource.getTopHeadlines(params, {
-            newsRemoteDataSource.getTopHeadlines(params, {
-                // TODO cache the top headlines to local data source
+            ok, errMsg, data ->
+            if (ok && !data.isEmpty()) {
+                callback(ok, errMsg, data)
+            } else {
+                newsRemoteDataSource.getTopHeadlines(params, {
+                    rdsOk, rdsErrMsg, rdsData ->
 
-                callback(it)
-            })
+                    if (rdsOk && !rdsData.isEmpty()) {
+                        // TODO cache the top headlines to local data source
+
+                    }
+
+                    callback(rdsOk, rdsErrMsg, rdsData)
+                })
+            }
         })
     }
 
@@ -51,7 +68,5 @@ class NewsRepository private constructor(): NewsDataSource {
 
             return mInstance
         }
-
     }
-
 }

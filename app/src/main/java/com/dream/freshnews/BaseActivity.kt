@@ -1,6 +1,8 @@
 package com.dream.freshnews
 
+import android.annotation.TargetApi
 import android.app.ProgressDialog
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
@@ -10,8 +12,25 @@ open abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
     }
 
+    fun isActivityValid(): Boolean {
+        if (this.isFinishing) {
+            return false
+        } else if ((Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) && isActivityDestroyed()) {
+            return false
+        }
+
+        return true
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private fun isActivityDestroyed(): Boolean {
+        return this.isDestroyed
+    }
+
     private var pDialog: ProgressDialog? = null
     open fun hideLoading() {
+        if (!isActivityValid()) return
+
         if (pDialog != null && pDialog!!.isShowing) {
             try {
                 pDialog!!.dismiss()
@@ -21,6 +40,8 @@ open abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun showLoading(msg: String = "Loading...") {
+        if (!isActivityValid()) return
+
         if (pDialog != null && pDialog!!.isShowing()) {
             pDialog!!.setMessage(msg)
 

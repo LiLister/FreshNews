@@ -15,12 +15,15 @@ import com.dream.freshnews.data.source.NewsRepository
 import com.dream.freshnews.data.source.local.NewsLocalDataSource
 import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
 import com.dream.freshnews.topheadlines.TopHeadlinesActivity
+import com.dream.freshnews.util.DialogHelper
+import com.dream.freshnews.util.MyInjectionUtil
 import kotlinx.android.synthetic.main.activity_sources.*
 import org.jetbrains.anko.onClick
 
 class SourcesActivity : BaseActivity() {
 
     private lateinit var sourceAdapter: SourceAdapter
+    private val newsRepository = MyInjectionUtil.newsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +42,18 @@ class SourcesActivity : BaseActivity() {
         showLoading()
 
         // load source
-        val newsRepository = NewsRepository.getInstance(NewsLocalDataSource(), NewsRemoteDataSource())
 
         newsRepository.getSources {
-            sourceAdapter.setData(it)
+            ok, errMsg, data ->
 
             hideLoading()
+
+            if (!ok) {
+                DialogHelper.showSimpleInfoDialog(this.fragmentManager, resources.getString(
+                    R.string.failed_to_load_sources, "" +errMsg))
+            } else {
+                sourceAdapter.setData(data)
+            }
         }
     }
 }

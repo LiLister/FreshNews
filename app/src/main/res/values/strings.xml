@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">FreshNews</string>
     <string name="slogan">Fresh News From All Over the World!</string>
+    <string name="failed_to_load_top_headlines">Failed to load top headlines: %1$s</string>
+    <string name="failed_to_load_sources">Failed to load sources: %1$s</string>
 </resources>
