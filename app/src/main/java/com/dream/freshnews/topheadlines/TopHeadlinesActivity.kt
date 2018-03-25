@@ -2,6 +2,7 @@ package com.dream.freshnews.topheadlines
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -46,6 +47,11 @@ class TopHeadlinesActivity : BaseActivity() {
 
         loadData()
     }
+
+//    override fun onConfigurationChanged(newConfig: Configuration?) {
+////        setContentView(R.layout.activity_top_headlines)
+//        super.onConfigurationChanged(newConfig)
+//    }
 
     private fun initViews() {
         topHeadinesAdapter = TopHeadinesAdapter(this)

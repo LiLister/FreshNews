@@ -17,6 +17,12 @@
 
     <dimen name="list_item_font_size_middle">14sp</dimen>
 
+    <dimen name="list_item_thumbnail_width">160dp</dimen>
+    <dimen name="list_item_thumbnail_height">90dp</dimen>
+
+    <dimen name="list_item_thumbnail_width_land">240dp</dimen>
+    <dimen name="list_item_thumbnail_height_land">135dp</dimen>
+
     <!-- for item with image on left side -->
     <dimen name="list_item_text_margin_left">12dp</dimen>
 

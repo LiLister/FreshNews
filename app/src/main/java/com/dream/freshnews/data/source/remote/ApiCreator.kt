@@ -2,6 +2,7 @@ package com.dream.freshnews.data.source.remote
 
 import com.dream.freshnews.FreshNewsApp
 import com.dream.freshnews.R
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -42,6 +43,7 @@ class ApiCreator private constructor() {
             .writeTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)
             .followSslRedirects(true)
+            .cache(Cache(FreshNewsApp.instance.applicationContext.cacheDir, 50 * 1024 * 1024))
             .sslSocketFactory(getSSLSocketFactory(), getX509TrustManager())
             .build()
     }
