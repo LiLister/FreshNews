@@ -15,6 +15,7 @@ import retrofit2.Response
 
 class NewsRemoteDataSource: NewsDataSource {
 
+    private val KEY_API_KEY = "apiKey"
     private val API_KEY = "9b420ed5b1f8456282aefde448c51351"
     private val END_POINT = "https://newsapi.org"
 
@@ -25,7 +26,7 @@ class NewsRemoteDataSource: NewsDataSource {
     }
 
     override fun getSources(callback: (data: List<Source>) -> Unit) {
-        val params = mapOf("apiKey" to API_KEY)
+        val params = mapOf(KEY_API_KEY to API_KEY)
         newsApi.getSources(params).enqueue(object: Callback<SourcesResponse> {
             override fun onFailure(call: Call<SourcesResponse>?, t: Throwable?) {
                 callback(listOf())
@@ -42,10 +43,11 @@ class NewsRemoteDataSource: NewsDataSource {
     override fun getTopHeadlines(params: Map<String, String>, callback: (data: List<TopHeadline>) -> Unit) {
         // TODO check whether there more articles available
 
-        val parameters = mutableMapOf<String, String>("apiKey" to API_KEY)
+        val parameters = mutableMapOf<String, String>()
         parameters.putAll(params)
+        parameters.put(KEY_API_KEY, API_KEY)
 
-        newsApi.getTopHeadlines(params).enqueue(object: Callback<TopHeadlinesResponse> {
+        newsApi.getTopHeadlines(parameters).enqueue(object: Callback<TopHeadlinesResponse> {
             override fun onFailure(call: Call<TopHeadlinesResponse>?, t: Throwable?) {
                 callback(listOf())
             }

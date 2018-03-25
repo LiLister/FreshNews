@@ -14,6 +14,7 @@ import com.dream.freshnews.data.Source
 import com.dream.freshnews.data.source.NewsRepository
 import com.dream.freshnews.data.source.local.NewsLocalDataSource
 import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
+import com.dream.freshnews.topheadlines.TopHeadlinesActivity
 import kotlinx.android.synthetic.main.activity_sources.*
 import org.jetbrains.anko.onClick
 
@@ -26,14 +27,16 @@ class SourcesActivity : BaseActivity() {
         setContentView(R.layout.activity_sources)
 
         sourceAdapter = SourceAdapter(this)
+        sourceAdapter.setOnItemClick { position, source ->
+            TopHeadlinesActivity.startMe(this@SourcesActivity, source.id)
+        }
 
         rv_sources.layoutManager = LinearLayoutManager(this)
-
         rv_sources.adapter = sourceAdapter
-
 
         showLoading()
 
+        // load source
         val newsRepository = NewsRepository.getInstance(NewsLocalDataSource(), NewsRemoteDataSource())
 
         newsRepository.getSources {
@@ -46,6 +49,12 @@ class SourcesActivity : BaseActivity() {
 
 class SourceAdapter(private val context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mData: MutableList<Source> = mutableListOf()
+
+    private var onItemClick: ((position: Int, source: Source) -> Unit)? = null
+
+    fun setOnItemClick(itemClickHandler: ((position: Int, source: Source) -> Unit)) {
+        onItemClick = itemClickHandler
+    }
 
     fun setData(data: List<Source>) {
         mData.clear()
@@ -69,7 +78,7 @@ class SourceAdapter(private val context: Context): RecyclerView.Adapter<Recycler
         (holder as ViewHolder).bindView(data, position)
 
         holder.itemView.onClick {
-//            onItemClick?.invoke(data)
+            onItemClick?.invoke(position, data)
         }
     }
 
@@ -77,12 +86,6 @@ class SourceAdapter(private val context: Context): RecyclerView.Adapter<Recycler
         private var tvTitle: TextView = itemView.findViewById(R.id.tv_title)
         private var tvDescription: TextView = itemView.findViewById(R.id.tv_description)
         private var tvURL: TextView = itemView.findViewById(R.id.tv_url)
-
-//        init {
-//            tvTitle = itemView.findViewById(R.id.tv_title)
-//            tvDescription = itemView.findViewById(R.id.tv_description)
-//
-//        }
 
         fun bindView(data: Source, position: Int) {
             tvTitle.text = data.name

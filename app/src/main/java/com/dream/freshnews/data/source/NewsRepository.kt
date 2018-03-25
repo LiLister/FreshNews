@@ -37,6 +37,10 @@ class NewsRepository private constructor(): NewsDataSource {
     }
 
     companion object {
+        val KEY_SOURCE = "sources"
+        val KEY_PAGE_SIZE = "pageSize"
+        val KEY_PAGE = "page"
+
         private var mInstance: NewsRepository = NewsRepository()
 
         fun getInstance(localDataSource: NewsLocalDataSource, remoteDataSource: NewsRemoteDataSource): NewsRepository {
