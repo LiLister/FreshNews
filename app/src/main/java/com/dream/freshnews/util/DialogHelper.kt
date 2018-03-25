@@ -1,6 +1,5 @@
 package com.dream.freshnews.util
 
-import android.R
 import android.app.AlertDialog
 import android.app.Dialog
 import android.app.DialogFragment
@@ -15,7 +14,7 @@ object DialogHelper {
     fun showSimpleInfoDialog(manager: FragmentManager, message: String, title: String = "Info") {
 
         var dialog = CommonDialog()
-        dialog.setTheArguments( title, message, R.drawable.ic_dialog_info)
+        dialog.setTheArguments( title, message, android.R.drawable.ic_dialog_info)
 
         dialog.show(manager, title)
     }

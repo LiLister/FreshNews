@@ -4,21 +4,15 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import com.dream.freshnews.BaseActivity
 import com.dream.freshnews.R
 import com.dream.freshnews.data.Source
-import com.dream.freshnews.data.source.NewsRepository
-import com.dream.freshnews.data.source.local.NewsLocalDataSource
-import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
 import com.dream.freshnews.topheadlines.TopHeadlinesActivity
 import com.dream.freshnews.util.DialogHelper
 import com.dream.freshnews.util.MyInjectionUtil
 import kotlinx.android.synthetic.main.activity_sources.*
-import org.jetbrains.anko.onClick
 
 class SourcesActivity : BaseActivity() {
 
@@ -39,12 +33,34 @@ class SourcesActivity : BaseActivity() {
         rv_sources.layoutManager = LinearLayoutManager(this)
         rv_sources.adapter = sourceAdapter
 
+        // load source
+        loadData()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.source_refresh, menu)
+
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            R.id.menu_refresh -> {
+                newsRepository.clearCachedSources()
+
+                loadData()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun loadData() {
         showLoading()
 
-        // load source
-
         newsRepository.getSources {
-            ok, errMsg, data ->
+                ok, errMsg, data ->
 
             hideLoading()
 
@@ -74,7 +90,7 @@ class SourceAdapter(private val context: Context): RecyclerView.Adapter<Recycler
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(context).inflate(
             R.layout.item_source, parent, false)
         return ViewHolder(view)
@@ -84,11 +100,11 @@ class SourceAdapter(private val context: Context): RecyclerView.Adapter<Recycler
         return mData.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = mData.get(position)
         (holder as ViewHolder).bindView(data, position)
 
-        holder.itemView.onClick {
+        holder.itemView.setOnClickListener {
             onItemClick?.invoke(position, data)
         }
     }

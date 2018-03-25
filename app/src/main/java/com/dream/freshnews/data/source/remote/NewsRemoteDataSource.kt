@@ -26,6 +26,10 @@ class NewsRemoteDataSource: NewsDataSource {
         newsApi = ApiCreator.instance().createApi(NewsApi::class.java, END_POINT)
     }
 
+    override fun clearCachedSources() {
+        // Do nothing
+    }
+
     override fun getSources(callback: MyCallback<List<Source>>) {
         val params = mapOf(KEY_API_KEY to API_KEY)
         newsApi.getSources(params).enqueue(object: Callback<SourcesResponse> {

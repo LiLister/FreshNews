@@ -2,8 +2,6 @@ package com.dream.freshnews.topheadlines
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Canvas
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -25,7 +23,6 @@ import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
 import com.dream.freshnews.util.DateTimeUtil
 import com.dream.freshnews.util.DialogHelper
 import kotlinx.android.synthetic.main.activity_top_headlines.*
-import org.jetbrains.anko.onClick
 
 class TopHeadlinesActivity : BaseActivity() {
 
@@ -101,7 +98,7 @@ class TopHeadinesAdapter(private val context: Context): RecyclerView.Adapter<Rec
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(context).inflate(
             R.layout.item_top_headline, parent, false)
         return ViewHolder(view)
@@ -111,11 +108,11 @@ class TopHeadinesAdapter(private val context: Context): RecyclerView.Adapter<Rec
         return mData.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = mData.get(position)
         (holder as ViewHolder).bindView(context, data, position)
 
-        holder.itemView.onClick {
+        holder.itemView.setOnClickListener {
             onItemClick?.invoke(position, data)
         }
     }

@@ -3,13 +3,28 @@ package com.dream.freshnews
 import android.annotation.TargetApi
 import android.app.ProgressDialog
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
+import android.support.v7.app.AppCompatActivity
+import com.dream.freshnews.util.debug
 
 open abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        debug {
+            StrictMode.setThreadPolicy(
+                StrictMode.ThreadPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build())
+            StrictMode.setVmPolicy(
+                StrictMode.VmPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build())
+        }
     }
 
     fun isActivityValid(): Boolean {

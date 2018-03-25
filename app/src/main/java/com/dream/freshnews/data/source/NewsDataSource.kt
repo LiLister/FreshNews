@@ -10,6 +10,7 @@ import com.dream.freshnews.data.TopHeadline
 typealias MyCallback<T> = (ok: Boolean, errorMsg: String?, data: T) -> Unit
 
 interface NewsDataSource {
+    fun clearCachedSources()
     fun getSources(callback: MyCallback<List<Source>>)
     fun getTopHeadlines(params: Map<String, String>, callback: MyCallback<List<TopHeadline>>)
 }

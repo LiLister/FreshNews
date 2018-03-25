@@ -11,6 +11,7 @@
 
     <ImageView
         android:id="@+id/iv_thumbnail"
+        android:contentDescription="@string/item_top_head_line_thumbnail_content_description"
         android:layout_width="160dp"
         android:layout_height="90dp" />
 
@@ -30,12 +31,10 @@
             android:layout_marginLeft="@dimen/list_item_text_margin_left"
             android:layout_marginStart="@dimen/list_item_text_margin_left"
             android:textSize="@dimen/list_item_font_size_middle"
-            android:textColor="@color/black"
-            android:text="Terrorism not suspected in fiery SUV crash at Air Force base, Terrorism not suspected in fiery SUV crash at Air Force base" />
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tv_author"
-            android:text="Tom Winter, Corky Siemaszko"
             android:maxLines="1"
             android:layout_below="@id/tv_title"
             android:layout_marginTop="@dimen/list_item_text_margin_top"
@@ -47,7 +46,6 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/tv_published_day"
-            android:text="2018-03-23 22:38:37"
             android:textSize="@dimen/list_item_url_font_size"
             android:textColor="@color/txt_gray_1"
             android:layout_below="@id/tv_author"
@@ -60,7 +58,6 @@
 
     <TextView
         android:id="@+id/tv_description"
-        android:text="Your trusted source for breaking news, analysis, exclusive interviews, headlines, and videos at ABCNews.com."
         android:textSize="@dimen/list_item_description_font_size"
         android:textColor="@color/txt_dark_gray"
         android:layout_below="@id/iv_thumbnail"

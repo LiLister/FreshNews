@@ -38,6 +38,11 @@ class NewsLocalDataSource: NewsDataSource {
         PreferencesUtil.putSources(jsonSources)
     }
 
+    override fun clearCachedSources() {
+        PreferencesUtil.clearSources()
+        listSource.clear()
+    }
+
     override fun getSources(callback: MyCallback<List<Source>>) {
         callback(true, null, listSource)
     }

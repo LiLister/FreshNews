@@ -2,9 +2,9 @@ package com.dream.freshnews.data.source
 
 import com.dream.freshnews.data.Source
 import com.dream.freshnews.data.TopHeadline
-import com.dream.freshnews.data.source.NewsRepository.Companion.mInstance
 import com.dream.freshnews.data.source.local.NewsLocalDataSource
 import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
+import com.dream.freshnews.util.NetworkStateUtil
 
 /**
  * Created by lixingming on 24/03/2018.
@@ -14,12 +14,16 @@ class NewsRepository private constructor(): NewsDataSource {
     private lateinit var newsLocalDataSource: NewsLocalDataSource
     private lateinit var newsRemoteDataSource: NewsRemoteDataSource
 
+    override fun clearCachedSources() {
+        newsLocalDataSource.clearCachedSources()
+    }
+
     override fun getSources(callback: MyCallback<List<Source>>) {
         newsLocalDataSource.getSources({
             ok, errorMsg, data ->
             if (ok && !data.isEmpty()) {
                 callback(ok, errorMsg, data)
-            } else {
+            } else if (NetworkStateUtil.isConnected()) {
                 newsRemoteDataSource.getSources({
                     rdsOk, rdsErrMsg, rdsData ->
                     // cache the sources to local data source
@@ -29,6 +33,8 @@ class NewsRepository private constructor(): NewsDataSource {
 
                     callback(rdsOk, rdsErrMsg, rdsData)
                 })
+            } else {
+                callback(false, "Network connection not available", listOf())
             }
         })
     }
@@ -38,7 +44,7 @@ class NewsRepository private constructor(): NewsDataSource {
             ok, errMsg, data ->
             if (ok && !data.isEmpty()) {
                 callback(ok, errMsg, data)
-            } else {
+            } else if (NetworkStateUtil.isConnected()) {
                 newsRemoteDataSource.getTopHeadlines(params, {
                     rdsOk, rdsErrMsg, rdsData ->
 
@@ -49,6 +55,8 @@ class NewsRepository private constructor(): NewsDataSource {
 
                     callback(rdsOk, rdsErrMsg, rdsData)
                 })
+            } else {
+                callback(false, "Network connection not available", listOf())
             }
         })
     }

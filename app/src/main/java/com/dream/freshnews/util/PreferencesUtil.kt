@@ -3,7 +3,7 @@ package com.dream.freshnews.util
 import android.content.Context
 import android.content.SharedPreferences
 import com.dream.freshnews.FreshNewsApp
-import java.util.HashMap
+import java.util.*
 
 /**
  * Created by lixingming on 25/03/2018.
@@ -22,6 +22,10 @@ object PreferencesUtil {
 
     fun putSources(josnSources: String) {
         putString(KEY_SOURCES, josnSources)
+    }
+
+    fun clearSources() {
+        putString(KEY_SOURCES, null, true)
     }
 
     private fun putString(key: String, value: String?, sync: Boolean = false) {

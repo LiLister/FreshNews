@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_version = '1.2.31'
-    ext.anko_version = '0.9.1'
+    ext.anko_version = '0.10.4'
 
     repositories {
         google()
@@ -27,7 +27,7 @@ allprojects {
 // Define versions in a single place
 ext {
     // App dependencies
-    supportLibraryVersion = '26.1.0'
+    supportLibraryVersion = '27.1.0'
 
 }
 
