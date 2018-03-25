@@ -22,14 +22,17 @@ import com.dream.freshnews.data.source.local.NewsLocalDataSource
 import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
 import com.dream.freshnews.util.DateTimeUtil
 import com.dream.freshnews.util.DialogHelper
+import com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout
 import kotlinx.android.synthetic.main.activity_top_headlines.*
 
 class TopHeadlinesActivity : BaseActivity() {
 
     private lateinit var topHeadinesAdapter: TopHeadinesAdapter
-    private var pageNo: Int = 0
-    private val pageSize: Int = 20
+    private var pageNo: Int = 1
+    private val pageSize: Int = 5
+    private var hasMore: Boolean = true
     private lateinit var source: String
+    private val newsRepository = NewsRepository.getInstance(NewsLocalDataSource(), NewsRemoteDataSource())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,27 +40,72 @@ class TopHeadlinesActivity : BaseActivity() {
 
         title = "Top Headlines"
 
+        initViews()
+
+        source = intent.getStringExtra(KEY_SOURCE_NAME)
+
+        loadData()
+    }
+
+    private fun initViews() {
         topHeadinesAdapter = TopHeadinesAdapter(this)
 
         rv_top_headlines.layoutManager = LinearLayoutManager(this)
         rv_top_headlines.adapter = topHeadinesAdapter
 
+        swipe_refresh.setOnPullRefreshListener(object: SuperSwipeRefreshLayout.OnPullRefreshListener {
+            override fun onRefresh() {
+                pageNo = 1
+                loadData()
+            }
+
+            override fun onPullDistance(p0: Int) { }
+
+            override fun onPullEnable(p0: Boolean) { }
+        })
+
+        swipe_refresh.setOnPushLoadMoreListener(object: SuperSwipeRefreshLayout.OnPushLoadMoreListener {
+            override fun onLoadMore() {
+                if (hasMore) {
+                    pageNo += 1
+
+                    loadData()
+                } else {
+                    swipe_refresh.setLoadMore(false)
+                }
+            }
+
+            override fun onPushDistance(p0: Int) { }
+
+            override fun onPushEnable(p0: Boolean) { }
+
+        })
+    }
+
+    private fun loadData() {
         showLoading()
 
-        source = intent.getStringExtra(KEY_SOURCE_NAME)
-
-        val newsRepository = NewsRepository.getInstance(NewsLocalDataSource(), NewsRemoteDataSource())
-
-        newsRepository.getTopHeadlines(constructParameters(), {
-            ok, errMsg, data ->
+        newsRepository.getTopHeadlines(constructParameters(), { ok, errMsg, data ->
 
             hideLoading()
+            swipe_refresh.isRefreshing = false
+            swipe_refresh.setLoadMore(false)
 
             if (!ok) {
-                DialogHelper.showSimpleInfoDialog(this.fragmentManager, resources.getString(
-                    R.string.failed_to_load_top_headlines, "" +errMsg))
+                DialogHelper.showSimpleInfoDialog(
+                    this.fragmentManager, resources.getString(
+                        R.string.failed_to_load_top_headlines, "" + errMsg
+                    )
+                )
             } else {
-                topHeadinesAdapter.setData(data)
+                if (pageNo == 1) {
+                    topHeadinesAdapter.setData(data)
+                } else {
+                    topHeadinesAdapter.appendData(data)
+                }
+
+                // TODO not return the totalResults to check more accurately. Should be optimized later
+                hasMore = data.size >= pageSize
             }
         })
     }
@@ -96,6 +144,12 @@ class TopHeadinesAdapter(private val context: Context): RecyclerView.Adapter<Rec
         mData.addAll(data)
 
         notifyDataSetChanged()
+    }
+
+    fun appendData(data: List<TopHeadline>) {
+        mData.addAll(data)
+
+        notifyItemMoved(mData.size - data.size, mData.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
