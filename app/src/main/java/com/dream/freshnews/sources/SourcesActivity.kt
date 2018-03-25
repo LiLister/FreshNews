@@ -26,6 +26,8 @@ class SourcesActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sources)
 
+        title = "News Sources"
+
         sourceAdapter = SourceAdapter(this)
         sourceAdapter.setOnItemClick { position, source ->
             TopHeadlinesActivity.startMe(this@SourcesActivity, source.id)

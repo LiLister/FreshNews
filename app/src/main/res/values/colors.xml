@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="urlColor">#377DFF</color>
+    <color name="black">#000000</color>
+
+    <color name="txt_dark_gray">#484848</color>
+    <color name="txt_gray">#808080</color>
+    <color name="txt_gray_1">#A0A0A0</color>
+    <color name="txt_light_gray">#c8c8c8</color>
+
 </resources>

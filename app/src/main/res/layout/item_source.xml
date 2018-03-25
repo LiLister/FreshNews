@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="@dimen/list_item_margin_left"
+    android:layout_marginStart="@dimen/list_item_margin_left"
+    android:layout_marginRight="@dimen/list_item_margin_right"
+    android:layout_marginEnd="@dimen/list_item_margin_right"
+    android:layout_marginTop="@dimen/list_item_margin_top"
+    >
+        <TextView
+            android:id="@+id/tv_title"
+            android:text="ABC NEWS"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_item_title_height"
+            android:textSize="@dimen/list_item_title_font_size"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_gravity="center_vertical"
+            android:textAlignment="gravity"
+            android:text="Your trusted source for breaking news, analysis, exclusive interviews, headlines, and videos at ABCNews.com."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/list_item_description_font_size"
+            android:textColor="@color/txt_dark_gray"
+            />
+        <TextView
+            android:id="@+id/tv_url"
+            android:layout_gravity="center_vertical"
+            android:textAlignment="gravity"
+            android:text="http://abcnews.go.com"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_item_url_height"
+            android:textSize="@dimen/list_item_url_font_size"
+            android:textColor="@color/urlColor"
+            android:layout_marginBottom="@dimen/list_item_margin_bottom"
+            />
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/tv_description"
-        android:layout_below="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/tv_url"
-        android:layout_below="@+id/tv_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-</RelativeLayout>
+    <include layout="@layout/item_divider_line" />
+</LinearLayout>

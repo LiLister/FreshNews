@@ -2,6 +2,7 @@ package com.dream.freshnews.topheadlines
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Canvas
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.dream.freshnews.BaseActivity
 import com.dream.freshnews.R
 import com.dream.freshnews.data.TopHeadline
@@ -20,6 +22,7 @@ import com.dream.freshnews.data.source.NewsRepository.Companion.KEY_PAGE_SIZE
 import com.dream.freshnews.data.source.NewsRepository.Companion.KEY_SOURCE
 import com.dream.freshnews.data.source.local.NewsLocalDataSource
 import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
+import com.dream.freshnews.util.DateTimeUtil
 import kotlinx.android.synthetic.main.activity_top_headlines.*
 import org.jetbrains.anko.onClick
 
@@ -33,6 +36,8 @@ class TopHeadlinesActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_top_headlines)
+
+        title = "Top Headlines"
 
         topHeadinesAdapter = TopHeadinesAdapter(this)
 
@@ -100,7 +105,7 @@ class TopHeadinesAdapter(private val context: Context): RecyclerView.Adapter<Rec
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val data = mData.get(position)
-        (holder as ViewHolder).bindView(data, position)
+        (holder as ViewHolder).bindView(context, data, position)
 
         holder.itemView.onClick {
             onItemClick?.invoke(position, data)
@@ -114,14 +119,14 @@ class TopHeadinesAdapter(private val context: Context): RecyclerView.Adapter<Rec
         private var tvPublishedDay: TextView = itemView.findViewById(R.id.tv_published_day)
         private var ivThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
 
-        fun bindView(data: TopHeadline, position: Int) {
+        fun bindView(context: Context, data: TopHeadline, position: Int) {
             tvTitle.text = data.title
             tvDescription.text = data.description
             tvAuthor.text = data.author
-            //TODO format data
-            tvPublishedDay.text = data.publishedAt
+            // format date
+            tvPublishedDay.text = DateTimeUtil.toLocalDateTime(data.publishedAt)
 
-//            ivThumbnail.setImageURI(Uri.parse(data.urlToImage))
+            Glide.with(context).load(data.urlToImage).into(ivThumbnail)
         }
 
     }

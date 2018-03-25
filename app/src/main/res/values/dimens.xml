@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_item_margin_left">16dp</dimen>
+    <dimen name="list_item_margin_right">16dp</dimen>
+    <dimen name="list_item_margin_top">16dp</dimen>
+    <dimen name="list_item_margin_bottom">12dp</dimen>
+
+    <dimen name="list_item_title_height">24dp</dimen>
+    <dimen name="list_item_title_font_size">18sp</dimen>
+
+    <dimen name="list_item_description_font_size">12sp</dimen>
+
+    <dimen name="list_item_url_height">20dp</dimen>
+    <dimen name="list_item_url_font_size">10sp</dimen>
+
+    <dimen name="item_divider_height">0.5dp</dimen>
+
+    <dimen name="list_item_font_size_middle">14sp</dimen>
+
+    <!-- for item with image on left side -->
+    <dimen name="list_item_text_margin_left">12dp</dimen>
+
+    <!-- for item below another item -->
+    <dimen name="list_item_text_margin_top">8dp</dimen>
+    <dimen name="list_item_text_margin_top_small">4dp</dimen>
+
+</resources>
