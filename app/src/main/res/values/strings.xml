@@ -8,4 +8,9 @@
 
     <string name="item_top_head_line_thumbnail_content_description">headline thumbnail</string>
 
+    <string name="load_more_not_enabled">push to load more...</string>
+    <string name="load_more_enabled">release to load more...</string>
+    <string name="load_more_loading">loading...</string>
+    <string name="load_more_loaded">load finished</string>
+
 </resources>

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.dream.freshnews.BaseActivity
@@ -23,8 +24,11 @@ import com.dream.freshnews.data.source.local.NewsLocalDataSource
 import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
 import com.dream.freshnews.util.DateTimeUtil
 import com.dream.freshnews.util.DialogHelper
+import com.dream.freshnews.view.FooterView
+import com.dream.freshnews.view.LoadingState
 import com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout
 import kotlinx.android.synthetic.main.activity_top_headlines.*
+import org.jetbrains.anko.find
 
 class TopHeadlinesActivity : BaseActivity() {
 
@@ -34,6 +38,7 @@ class TopHeadlinesActivity : BaseActivity() {
     private var hasMore: Boolean = true
     private lateinit var source: String
     private val newsRepository = NewsRepository.getInstance(NewsLocalDataSource(), NewsRemoteDataSource())
+    private lateinit var footerView: FooterView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +64,8 @@ class TopHeadlinesActivity : BaseActivity() {
     }
 
     private fun initViews() {
+        footerView = FooterView(this)
+
         topHeadinesAdapter = TopHeadinesAdapter(this)
 
         rv_top_headlines.layoutManager = LinearLayoutManager(this)
@@ -75,10 +82,13 @@ class TopHeadlinesActivity : BaseActivity() {
             override fun onPullEnable(p0: Boolean) { }
         })
 
+        swipe_refresh.setFooterView(footerView.getView())
         swipe_refresh.setOnPushLoadMoreListener(object: SuperSwipeRefreshLayout.OnPushLoadMoreListener {
             override fun onLoadMore() {
                 if (hasMore) {
                     pageNo += 1
+
+                    footerView.updateState(LoadingState.LS_LOADING)
 
                     loadData()
                 } else {
@@ -88,8 +98,10 @@ class TopHeadlinesActivity : BaseActivity() {
 
             override fun onPushDistance(p0: Int) { }
 
-            override fun onPushEnable(p0: Boolean) { }
-
+            override fun onPushEnable(p0: Boolean) {
+                val loadingState = if (p0) LoadingState.LS_ENABLED else LoadingState.LS_NOT_ENABLED
+                footerView.updateState(loadingState)
+            }
         })
     }
 
@@ -103,6 +115,7 @@ class TopHeadlinesActivity : BaseActivity() {
             if (isActivityValid()) {
                 swipe_refresh.isRefreshing = false
                 swipe_refresh.setLoadMore(false)
+                footerView.updateState(LoadingState.LS_LOADED)
 
                 if (!ok) {
                     DialogHelper.showSimpleInfoDialog(
