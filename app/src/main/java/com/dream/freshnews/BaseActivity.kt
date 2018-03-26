@@ -27,6 +27,13 @@ open abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        pDialog?.hide()
+        pDialog = null
+
+        super.onPause()
+    }
+
     fun isActivityValid(): Boolean {
         if (this.isFinishing) {
             return false

@@ -48,10 +48,15 @@ class TopHeadlinesActivity : BaseActivity() {
         loadData()
     }
 
-//    override fun onConfigurationChanged(newConfig: Configuration?) {
-////        setContentView(R.layout.activity_top_headlines)
-//        super.onConfigurationChanged(newConfig)
-//    }
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        val position = (rv_top_headlines.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+        // force the RecycyclerView to redraw its items
+        rv_top_headlines.adapter = topHeadinesAdapter
+
+        rv_top_headlines.scrollToPosition(position)
+
+        super.onConfigurationChanged(newConfig)
+    }
 
     private fun initViews() {
         topHeadinesAdapter = TopHeadinesAdapter(this)
@@ -94,24 +99,27 @@ class TopHeadlinesActivity : BaseActivity() {
         newsRepository.getTopHeadlines(constructParameters(), { ok, errMsg, data ->
 
             hideLoading()
-            swipe_refresh.isRefreshing = false
-            swipe_refresh.setLoadMore(false)
 
-            if (!ok) {
-                DialogHelper.showSimpleInfoDialog(
-                    this.fragmentManager, resources.getString(
-                        R.string.failed_to_load_top_headlines, "" + errMsg
+            if (isActivityValid()) {
+                swipe_refresh.isRefreshing = false
+                swipe_refresh.setLoadMore(false)
+
+                if (!ok) {
+                    DialogHelper.showSimpleInfoDialog(
+                        this.fragmentManager, resources.getString(
+                            R.string.failed_to_load_top_headlines, "" + errMsg
+                        )
                     )
-                )
-            } else {
-                if (pageNo == 1) {
-                    topHeadinesAdapter.setData(data)
                 } else {
-                    topHeadinesAdapter.appendData(data)
-                }
+                    if (pageNo == 1) {
+                        topHeadinesAdapter.setData(data)
+                    } else {
+                        topHeadinesAdapter.appendData(data)
+                    }
 
-                // TODO not return the totalResults to check more accurately. Should be optimized later
-                hasMore = data.size >= pageSize
+                    // TODO not return the totalResults to check more accurately. Should be optimized later
+                    hasMore = data.size >= pageSize
+                }
             }
         })
     }

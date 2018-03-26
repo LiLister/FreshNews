@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".topheadlines.TopHeadlinesActivity"
-            />
+            android:configChanges="orientation|screenSize" />
     </application>
 
 </manifest>
