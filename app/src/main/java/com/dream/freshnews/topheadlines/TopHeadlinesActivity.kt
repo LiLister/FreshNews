@@ -199,7 +199,7 @@ class TopHeadinesAdapter(private val context: Context): RecyclerView.Adapter<Rec
             // format date
             tvPublishedDay.text = DateTimeUtil.toLocalDateTime(data.publishedAt)
 
-            Glide.with(context).load(data.urlToImage).into(ivThumbnail)
+            Glide.with(context).load(data.urlToImage).placeholder(R.drawable.placeholder).into(ivThumbnail)
         }
 
     }

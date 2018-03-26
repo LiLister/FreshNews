@@ -2,6 +2,5 @@
 
 ## TODO
 
-* Handle layout when phone rotated;
-* Add a placeholder image for top headline thumbnail;
 * Write Unit test;
+* Add load more footer view for top headlines activity;
