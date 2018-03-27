@@ -2,7 +2,6 @@ package com.dream.freshnews.view
 
 import android.content.Context
 import android.view.View
-import android.widget.AutoCompleteTextView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.dream.freshnews.R

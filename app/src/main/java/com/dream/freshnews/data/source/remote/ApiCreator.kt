@@ -82,7 +82,7 @@ class ApiCreator private constructor() {
 
         val cf = CertificateFactory.getInstance("X.509")
 
-        var ca: Certificate
+        val ca: Certificate
         try {
             ca = cf.generateCertificate(caInput)
             System.out.println("ca=" + (ca as X509Certificate).subjectDN)

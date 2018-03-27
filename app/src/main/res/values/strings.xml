@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">FreshNews</string>
-    <string name="slogan">Fresh News From All Over the World!</string>
     <string name="failed_to_load_top_headlines">Failed to load top headlines: %1$s</string>
     <string name="failed_to_load_sources">Failed to load sources: %1$s</string>
 
@@ -8,9 +7,9 @@
 
     <string name="item_top_head_line_thumbnail_content_description">headline thumbnail</string>
 
-    <string name="load_more_not_enabled">push to load more...</string>
-    <string name="load_more_enabled">release to load more...</string>
-    <string name="load_more_loading">loading...</string>
+    <string name="load_more_not_enabled">push to load more…</string>
+    <string name="load_more_enabled">release to load more…</string>
+    <string name="load_more_loading">loading…</string>
     <string name="load_more_loaded">load finished</string>
 
 </resources>

@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.dream.freshnews.BaseActivity
@@ -28,7 +27,6 @@ import com.dream.freshnews.view.FooterView
 import com.dream.freshnews.view.LoadingState
 import com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout
 import kotlinx.android.synthetic.main.activity_top_headlines.*
-import org.jetbrains.anko.find
 
 class TopHeadlinesActivity : BaseActivity() {
 

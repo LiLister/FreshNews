@@ -13,7 +13,7 @@ object DialogHelper {
 
     fun showSimpleInfoDialog(manager: FragmentManager, message: String, title: String = "Info") {
 
-        var dialog = CommonDialog()
+        val dialog = CommonDialog()
         dialog.setTheArguments( title, message, android.R.drawable.ic_dialog_info)
 
         dialog.show(manager, title)
@@ -43,7 +43,7 @@ class CommonDialog: DialogFragment() {
 
     fun setTheArguments(title: String, message: String, iconID: Int = 0, positiveButtonText: String = "Ok",
                         negativeButtonText: String = "Cancel", needCancel: Boolean = false) {
-        var bundle = Bundle()
+        val bundle = Bundle()
         bundle.putString(KEY_TITLE, title)
         bundle.putString(KEY_MESSAGE, message)
         bundle.putInt(KEY_ICON_ID, iconID)

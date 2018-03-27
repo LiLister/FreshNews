@@ -74,9 +74,6 @@
 
     </RelativeLayout>
 
-    <include layout="@layout/item_divider_line"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_divider_height"
-        android:layout_below="@id/tv_description" />
+    <include layout="@layout/item_divider_line" />
 
 </LinearLayout>
