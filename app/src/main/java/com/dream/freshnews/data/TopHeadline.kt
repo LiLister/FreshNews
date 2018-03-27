@@ -8,5 +8,4 @@ package com.dream.freshnews.data
 * class to hold the top headline info
 */
 data class TopHeadline(val author: String, val title: String, val description: String, val url: String,
-                       val urlToImage: String, val publishedAt: String) {
-}
+                       val urlToImage: String, val publishedAt: String)

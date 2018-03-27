@@ -64,7 +64,7 @@ open abstract class BaseActivity : AppCompatActivity() {
     open fun showLoading(msg: String = "Loading...") {
         if (!isActivityValid()) return
 
-        if (pDialog != null && pDialog!!.isShowing()) {
+        if (pDialog != null && pDialog!!.isShowing) {
             pDialog!!.setMessage(msg)
 
             return

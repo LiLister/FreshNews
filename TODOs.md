@@ -3,4 +3,5 @@
 ## TODO
 
 * Write Unit test;
-* Add load more footer view for top headlines activity;
+* Add link to newsapi.org
+* Replace ProgressDialog with something else to avoid warning 'Deprecated class'

@@ -75,7 +75,7 @@ class ApiCreator private constructor() {
 
     private fun getKeyStore(): KeyStore? {
         val caInput = BufferedInputStream(
-            FreshNewsApp.instance.applicationContext.getResources().openRawResource(
+            FreshNewsApp.instance.applicationContext.resources.openRawResource(
                 R.raw.newsapi_org
             )
         )
@@ -85,7 +85,7 @@ class ApiCreator private constructor() {
         var ca: Certificate
         try {
             ca = cf.generateCertificate(caInput)
-            System.out.println("ca=" + (ca as X509Certificate).getSubjectDN())
+            System.out.println("ca=" + (ca as X509Certificate).subjectDN)
         } finally {
             caInput.close()
         }
@@ -109,7 +109,7 @@ class ApiCreator private constructor() {
             e.printStackTrace()
         }
 
-        val trustManagers = tmf.getTrustManagers()
+        val trustManagers = tmf.trustManagers
 
         val origTrustmanager = trustManagers[0] as X509TrustManager
 
