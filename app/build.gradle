@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+
     defaultConfig {
         applicationId "com.dream.freshnews"
         minSdkVersion 15
@@ -18,6 +20,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
         }
     }
 }
@@ -48,9 +56,18 @@ dependencies {
     implementation 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
 
     // super swipe to refresh layout
-    compile 'com.github.nuptboyzhb.lib.uikit:superswiperefreshlayout:1.0.0'
+    implementation 'com.github.nuptboyzhb.lib.uikit:superswiperefreshlayout:1.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.1'
+    androidTestImplementation 'com.android.support.test.espresso.idling:idling-concurrent:3.0.1'
+
+    // idling resource for okhttp. re-packaged to fix one issue described on github
+//    debugImplementation  (name: 'okhttp-idling-resource-release', ext: 'aar') {
+    androidTestImplementation files('libs/okhttp-idling-resource-release.aar')
+//            { exclude module: 'support-annotations' }
+
+    testImplementation "org.robolectric:robolectric:3.8"
 }
