@@ -27,6 +27,10 @@ import com.dream.freshnews.view.FooterView
 import com.dream.freshnews.view.LoadingState
 import com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout
 import kotlinx.android.synthetic.main.activity_top_headlines.*
+import com.dream.freshnews.R.drawable.placeholder
+import com.bumptech.glide.request.RequestOptions
+import com.dream.freshnews.GlideApp
+
 
 class TopHeadlinesActivity : BaseActivity() {
 
@@ -210,8 +214,10 @@ class TopHeadinesAdapter(private val context: Context): RecyclerView.Adapter<Rec
             // format date
             tvPublishedDay.text = DateTimeUtil.toLocalDateTime(data.publishedAt)
 
-            Glide.with(context).load(data.urlToImage).placeholder(R.drawable.placeholder).into(ivThumbnail)
+            GlideApp.with(context)
+                .load(data.urlToImage)
+                .placeholder(R.drawable.placeholder)
+                .into(ivThumbnail)
         }
-
     }
 }
