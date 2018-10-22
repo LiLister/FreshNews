@@ -14,7 +14,7 @@ import retrofit2.Response
  * Created by lixingming on 24/03/2018.
  */
 
-class NewsRemoteDataSource: NewsDataSource {
+class NewsRemoteDataSource : NewsDataSource {
 
     private val KEY_API_KEY = "apiKey"
     private val API_KEY = "9b420ed5b1f8456282aefde448c51351"
@@ -32,7 +32,7 @@ class NewsRemoteDataSource: NewsDataSource {
 
     override fun getSources(callback: MyCallback<List<Source>>) {
         val params = mapOf(KEY_API_KEY to API_KEY)
-        newsApi.getSources(params).enqueue(object: Callback<SourcesResponse> {
+        newsApi.getSources(params).enqueue(object : Callback<SourcesResponse> {
             override fun onFailure(call: Call<SourcesResponse>?, t: Throwable?) {
                 val errorMsg = t?.localizedMessage ?: "failed to get sources"
                 callback(false, errorMsg, listOf())
@@ -53,7 +53,7 @@ class NewsRemoteDataSource: NewsDataSource {
         parameters.putAll(params)
         parameters.put(KEY_API_KEY, API_KEY)
 
-        newsApi.getTopHeadlines(parameters).enqueue(object: Callback<TopHeadlinesResponse> {
+        newsApi.getTopHeadlines(parameters).enqueue(object : Callback<TopHeadlinesResponse> {
             override fun onFailure(call: Call<TopHeadlinesResponse>?, t: Throwable?) {
                 val errorMsg = t?.localizedMessage ?: "failed to get sources"
                 callback(false, errorMsg, listOf())

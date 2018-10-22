@@ -11,8 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import com.dream.freshnews.BaseActivity
+import com.dream.freshnews.GlideApp
 import com.dream.freshnews.R
 import com.dream.freshnews.data.TopHeadline
 import com.dream.freshnews.data.source.NewsRepository
@@ -27,10 +27,6 @@ import com.dream.freshnews.view.FooterView
 import com.dream.freshnews.view.LoadingState
 import com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout
 import kotlinx.android.synthetic.main.activity_top_headlines.*
-import com.dream.freshnews.R.drawable.placeholder
-import com.bumptech.glide.request.RequestOptions
-import com.dream.freshnews.GlideApp
-
 
 class TopHeadlinesActivity : BaseActivity() {
 
@@ -73,7 +69,7 @@ class TopHeadlinesActivity : BaseActivity() {
         rv_top_headlines.layoutManager = LinearLayoutManager(this)
         rv_top_headlines.adapter = topHeadinesAdapter
 
-        swipe_refresh.setOnPullRefreshListener(object: SuperSwipeRefreshLayout.OnPullRefreshListener {
+        swipe_refresh.setOnPullRefreshListener(object : SuperSwipeRefreshLayout.OnPullRefreshListener {
             override fun onRefresh() {
                 pageNo = 1
                 loadData()
@@ -85,7 +81,7 @@ class TopHeadlinesActivity : BaseActivity() {
         })
 
         swipe_refresh.setFooterView(footerView.getView())
-        swipe_refresh.setOnPushLoadMoreListener(object: SuperSwipeRefreshLayout.OnPushLoadMoreListener {
+        swipe_refresh.setOnPushLoadMoreListener(object : SuperSwipeRefreshLayout.OnPushLoadMoreListener {
             override fun onLoadMore() {
                 if (hasMore) {
                     pageNo += 1
@@ -110,7 +106,8 @@ class TopHeadlinesActivity : BaseActivity() {
     private fun loadData() {
         showLoading()
 
-        newsRepository.getTopHeadlines(constructParameters(), { ok, errMsg, data ->
+        newsRepository.getTopHeadlines(constructParameters()) {
+                ok, errMsg, data ->
 
             hideLoading()
 
@@ -136,10 +133,10 @@ class TopHeadlinesActivity : BaseActivity() {
                     hasMore = data.size >= pageSize
                 }
             }
-        })
+        }
     }
 
-    private fun constructParameters(): Map<String, String>  {
+    private fun constructParameters(): Map<String, String> {
         val result = mutableMapOf<String, String>()
         result.put(KEY_SOURCE, source)
         result.put(KEY_PAGE_SIZE, pageSize.toString())
@@ -159,7 +156,7 @@ class TopHeadlinesActivity : BaseActivity() {
     }
 }
 
-class TopHeadinesAdapter(private val context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TopHeadinesAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mData: MutableList<TopHeadline> = mutableListOf()
 
     private var onItemClick: ((position: Int, source: TopHeadline) -> Unit)? = null

@@ -7,5 +7,12 @@ package com.dream.freshnews.data
 /**
  * class to hold the source info
  */
-data class Source(val id: String, val name: String, val description: String, val url: String, val category: String,
-                  val language: String, val country: String)
+data class Source(
+    val id: String,
+    val name: String,
+    val description: String,
+    val url: String,
+    val category: String,
+    val language: String,
+    val country: String
+)

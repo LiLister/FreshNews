@@ -12,7 +12,7 @@ import com.google.gson.reflect.TypeToken
  * Created by lixingming on 24/03/2018.
  */
 
-class NewsLocalDataSource: NewsDataSource {
+class NewsLocalDataSource : NewsDataSource {
 
     private var listSource = mutableListOf<Source>()
 
@@ -50,6 +50,6 @@ class NewsLocalDataSource: NewsDataSource {
     override fun getTopHeadlines(params: Map<String, String>, callback: MyCallback<List<TopHeadline>>) {
         // TODO get top headlines from cache
 
-       callback(false, null, listOf())
+        callback(false, null, listOf())
     }
 }

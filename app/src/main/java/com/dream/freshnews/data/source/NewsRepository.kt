@@ -10,7 +10,7 @@ import com.dream.freshnews.util.NetworkStateUtil
  * Created by lixingming on 24/03/2018.
  */
 
-class NewsRepository private constructor(): NewsDataSource {
+class NewsRepository private constructor() : NewsDataSource {
     private lateinit var newsLocalDataSource: NewsLocalDataSource
     private lateinit var newsRemoteDataSource: NewsRemoteDataSource
 
@@ -40,25 +40,24 @@ class NewsRepository private constructor(): NewsDataSource {
     }
 
     override fun getTopHeadlines(params: Map<String, String>, callback: MyCallback<List<TopHeadline>>) {
-        newsLocalDataSource.getTopHeadlines(params, {
-            ok, errMsg, data ->
+        newsLocalDataSource.getTopHeadlines(params
+        ) {
+                ok, errMsg, data ->
             if (ok && !data.isEmpty()) {
                 callback(ok, errMsg, data)
             } else if (NetworkStateUtil.isConnected()) {
-                newsRemoteDataSource.getTopHeadlines(params, {
-                    rdsOk, rdsErrMsg, rdsData ->
+                newsRemoteDataSource.getTopHeadlines(params) { rdsOk, rdsErrMsg, rdsData ->
 
                     if (rdsOk && !rdsData.isEmpty()) {
                         // TODO cache the top headlines to local data source
-
                     }
 
                     callback(rdsOk, rdsErrMsg, rdsData)
-                })
+                }
             } else {
                 callback(false, "Network connection not available", listOf())
             }
-        })
+        }
     }
 
     companion object {

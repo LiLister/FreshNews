@@ -1,7 +1,7 @@
 package com.dream.freshnews.util
 
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.SimpleTimeZone
 
 /**
  * Created by lixingming on 25/03/2018.
@@ -21,7 +21,7 @@ object DateTimeUtil {
 
             result = outputDateFormater.format(date)
         } catch (e: Exception) {
-            result =  if (datetime.length > 10) datetime.substring(0, 10) else ""
+            result = if (datetime.length > 10) datetime.substring(0, 10) else ""
         }
 
         return result

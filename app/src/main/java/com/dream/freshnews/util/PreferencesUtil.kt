@@ -3,7 +3,6 @@ package com.dream.freshnews.util
 import android.content.Context
 import android.content.SharedPreferences
 import com.dream.freshnews.FreshNewsApp
-import java.util.*
 
 /**
  * Created by lixingming on 25/03/2018.
@@ -61,5 +60,4 @@ object PreferencesUtil {
             cachedData.put(key, value)
         }
     }
-
 }

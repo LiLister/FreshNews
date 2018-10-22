@@ -12,5 +12,4 @@ object MyInjectionUtil {
     val newsRepository: NewsDataSource by lazy {
         NewsRepository.getInstance(NewsLocalDataSource(), NewsRemoteDataSource())
     }
-
 }

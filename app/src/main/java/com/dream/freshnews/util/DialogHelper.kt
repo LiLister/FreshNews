@@ -14,7 +14,7 @@ object DialogHelper {
     fun showSimpleInfoDialog(manager: FragmentManager, message: String, title: String = "Info") {
 
         val dialog = CommonDialog()
-        dialog.setTheArguments( title, message, android.R.drawable.ic_dialog_info)
+        dialog.setTheArguments(title, message, android.R.drawable.ic_dialog_info)
 
         dialog.show(manager, title)
     }
@@ -22,7 +22,7 @@ object DialogHelper {
 
 typealias ClickHandler = () -> Unit
 
-class CommonDialog: DialogFragment() {
+class CommonDialog : DialogFragment() {
 
     private val KEY_TITLE = "title"
     private val KEY_MESSAGE = "message"
@@ -96,5 +96,4 @@ class CommonDialog: DialogFragment() {
 
         return builder.create()
     }
-
 }

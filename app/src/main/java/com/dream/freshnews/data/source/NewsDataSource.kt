@@ -14,4 +14,3 @@ interface NewsDataSource {
     fun getSources(callback: MyCallback<List<Source>>)
     fun getTopHeadlines(params: Map<String, String>, callback: MyCallback<List<TopHeadline>>)
 }
-

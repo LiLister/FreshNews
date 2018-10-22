@@ -19,14 +19,13 @@ import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
 
-
 /**
  * Created by lixingming on 24/03/2018.
  */
 
 class ApiCreator private constructor() {
 
-    val newBuilder : OkHttpClient.Builder by lazy {
+    val newBuilder: OkHttpClient.Builder by lazy {
         val builder = OkHttpClient.Builder()
 
         builder
@@ -48,7 +47,7 @@ class ApiCreator private constructor() {
             .build()
     }
 
-    fun<T> createApi(clazz: Class<T>, endpoint: String): T {
+    fun <T> createApi(clazz: Class<T>, endpoint: String): T {
         if (mapApi.get(clazz.name) == null) {
             val retrofit = Retrofit.Builder().client(okHttpClient)
                 .baseUrl(endpoint)
@@ -113,11 +112,11 @@ class ApiCreator private constructor() {
 
         val origTrustmanager = trustManagers[0] as X509TrustManager
 
-        val result = object: X509TrustManager {
+        val result = object : X509TrustManager {
             override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
                 try {
                     origTrustmanager.checkClientTrusted(chain, authType)
-                } catch(e: CertificateException) {
+                } catch (e: CertificateException) {
                     e.printStackTrace()
                 }
             }
@@ -125,7 +124,7 @@ class ApiCreator private constructor() {
             override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
                 try {
                     origTrustmanager.checkServerTrusted(chain, authType)
-                } catch(e: CertificateException) {
+                } catch (e: CertificateException) {
                     e.printStackTrace()
                 }
             }

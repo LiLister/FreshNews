@@ -40,12 +40,11 @@ class SourcesActivity : BaseActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.source_refresh, menu)
 
-
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
+        when (item?.itemId) {
             R.id.menu_refresh -> {
                 newsRepository.clearCachedSources()
 
@@ -66,7 +65,7 @@ class SourcesActivity : BaseActivity() {
 
             if (!ok) {
                 DialogHelper.showSimpleInfoDialog(this.fragmentManager, resources.getString(
-                    R.string.failed_to_load_sources, "" +errMsg))
+                    R.string.failed_to_load_sources, "" + errMsg))
             } else {
                 sourceAdapter.setData(data)
             }
@@ -74,7 +73,7 @@ class SourcesActivity : BaseActivity() {
     }
 }
 
-class SourceAdapter(private val context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SourceAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mData: MutableList<Source> = mutableListOf()
 
     private var onItemClick: ((position: Int, source: Source) -> Unit)? = null
@@ -119,9 +118,5 @@ class SourceAdapter(private val context: Context): RecyclerView.Adapter<Recycler
             tvDescription.text = data.description
             tvURL.text = data.url
         }
-
     }
 }
-
-
-
