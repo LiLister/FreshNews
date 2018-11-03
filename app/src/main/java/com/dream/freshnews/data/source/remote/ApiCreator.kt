@@ -1,7 +1,9 @@
 package com.dream.freshnews.data.source.remote
 
+import com.dream.freshnews.BuildConfig
 import com.dream.freshnews.FreshNewsApp
 import com.dream.freshnews.R
+import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -37,6 +39,10 @@ class ApiCreator private constructor() {
      *  called "addConverterFactory" to solve this issue
      */
     val okHttpClient: OkHttpClient by lazy {
+
+        if (BuildConfig.DEBUG) {
+            newBuilder.addInterceptor(OkHttpProfilerInterceptor())
+        }
 
         newBuilder.readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
