@@ -22,7 +22,7 @@ import com.dream.freshnews.data.source.NewsRepository.Companion.KEY_SOURCE
 import com.dream.freshnews.data.source.local.NewsLocalDataSource
 import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
 import com.dream.freshnews.util.DateTimeUtil
-//import com.dream.freshnews.util.DialogHelper
+import com.dream.freshnews.util.DialogHelper
 import com.dream.freshnews.view.FooterView
 import com.dream.freshnews.view.LoadingState
 import com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout
@@ -118,11 +118,11 @@ class TopHeadlinesActivity : BaseActivity() {
                 footerView.updateState(LoadingState.LS_LOADED)
 
                 if (!ok) {
-//                    DialogHelper.showSimpleInfoDialog(
-//                        this.supportFragmentManager, resources.getString(
-//                            R.string.failed_to_load_top_headlines, "" + errMsg
-//                        )
-//                    )
+                    DialogHelper.showSimpleInfoDialog(
+                        this.supportFragmentManager, resources.getString(
+                            R.string.failed_to_load_top_headlines, "" + errMsg
+                        )
+                    )
                 } else {
                     if (pageNo == 1) {
                         topHeadinesAdapter.setData(data)

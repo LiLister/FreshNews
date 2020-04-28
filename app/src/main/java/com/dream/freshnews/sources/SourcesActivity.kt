@@ -2,28 +2,22 @@ package com.dream.freshnews.sources
 
 import android.content.Context
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.*
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dream.freshnews.BaseActivity
 import com.dream.freshnews.R
 import com.dream.freshnews.data.Source
-import com.dream.freshnews.data.source.NewsDataSource
-import com.dream.freshnews.data.source.NewsRepository
-import com.dream.freshnews.data.source.local.NewsLocalDataSource
-import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
 import com.dream.freshnews.topheadlines.TopHeadlinesActivity
+import com.dream.freshnews.util.DialogHelper
 import com.dream.freshnews.util.MyInjectionUtil
-//import com.dream.freshnews.util.DialogHelper
-//import com.dream.freshnews.util.MyInjectionUtil
 import kotlinx.android.synthetic.main.activity_sources.*
 
 class SourcesActivity : BaseActivity() {
 
     private lateinit var sourceAdapter: SourceAdapter
-    private val newsRepository = NewsRepository.getInstance(NewsLocalDataSource(), NewsRemoteDataSource())//MyInjectionUtil.newsRepository
-//        MyInjectionUtil.newsRepository
+    private val newsRepository = MyInjectionUtil.newsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,8 +65,8 @@ class SourcesActivity : BaseActivity() {
             hideLoading()
 
             if (!ok) {
-//                DialogHelper.showSimpleInfoDialog(this.fragmentManager, resources.getString(
-//                    R.string.failed_to_load_sources, "" + errMsg))
+                DialogHelper.showSimpleInfoDialog(this.supportFragmentManager, resources.getString(
+                    R.string.failed_to_load_sources, "" + errMsg))
             } else {
                 sourceAdapter.setData(data)
             }
