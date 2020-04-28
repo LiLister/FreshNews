@@ -24,7 +24,7 @@ class SourcesActivityTest {
     @Before
     fun setUp() {
         ShadowLog.stream = System.out
-        val app= FreshNewsApp()
+//        val appContext = FreshNewsApp.instance.applicationContext
 //        app.setLocationProvider(mockLocationProvider)
     }
 
