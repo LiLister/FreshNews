@@ -1,7 +1,7 @@
 package com.dream.freshnews.util
 
 import java.text.SimpleDateFormat
-import java.util.SimpleTimeZone
+import java.util.*
 
 /**
  * Created by lixingming on 25/03/2018.
@@ -12,10 +12,10 @@ object DateTimeUtil {
                         outputFormat: String = "yyyy-MM-dd HH:mm:ss"): String {
         var result = ""
         try {
-            val inputDateFormater = SimpleDateFormat(inputFormat)
+            val inputDateFormater = SimpleDateFormat(inputFormat, Locale.US)
             inputDateFormater.timeZone = SimpleTimeZone(0, "UTC")
 
-            val outputDateFormater = SimpleDateFormat(outputFormat)
+            val outputDateFormater = SimpleDateFormat(outputFormat, Locale.US)
 
             val date = inputDateFormater.parse(datetime)
 

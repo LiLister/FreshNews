@@ -10,7 +10,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowLog
 
 /**
@@ -20,7 +19,7 @@ import org.robolectric.shadows.ShadowLog
  */
 
 @RunWith(RobolectricTestRunner::class)
-@Config(constants = BuildConfig::class)
+//@Config(constants = BuildConfig::class)
 
 class SourcesActivityTest {
 

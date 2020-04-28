@@ -5,7 +5,6 @@ package com.dream.freshnews;
  */
 
 import androidx.test.espresso.assertion.ViewAssertions;
-import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.dream.freshnews.sources.SourcesActivity;
