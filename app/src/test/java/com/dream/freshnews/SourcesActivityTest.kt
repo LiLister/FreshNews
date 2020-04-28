@@ -1,15 +1,11 @@
 package com.dream.freshnews
 
-import androidx.recyclerview.widget.RecyclerView
 import com.dream.freshnews.data.source.local.NewsLocalDataSource
-import com.dream.freshnews.sources.SourcesActivity
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowLog
 
@@ -20,6 +16,7 @@ import org.robolectric.shadows.ShadowLog
  */
 
 @RunWith(RobolectricTestRunner::class)
+@Config(sdk= intArrayOf(22))
 //@Config(constants = BuildConfig::class)
 
 class SourcesActivityTest {
@@ -27,6 +24,8 @@ class SourcesActivityTest {
     @Before
     fun setUp() {
         ShadowLog.stream = System.out
+        val app= FreshNewsApp()
+//        app.setLocationProvider(mockLocationProvider)
     }
 
     @Test
@@ -42,17 +41,17 @@ class SourcesActivityTest {
         }
     }
 
-    @Test
-    fun testSourcesActivity() {
-        System.out.println("Hello")
-
-        val sourcesActivity = Robolectric.setupActivity(SourcesActivity::class.java)
-
-        assertNotNull(sourcesActivity)
-
-        assertEquals(sourcesActivity.title, "News Sources")
-
-        val recyclerView = sourcesActivity.findViewById<RecyclerView>(R.id.rv_sources)
-        assertNotNull(recyclerView)
-    }
+//    @Test
+//    fun testSourcesActivity() {
+//        System.out.println("Hello")
+//
+//        val sourcesActivity = ActivityScenario.launch(SourcesActivity::class.java)
+//
+//        assertNotNull(sourcesActivity)
+//
+////        assertEquals(sourcesActivity.title, "News Sources")
+////
+////        val recyclerView = sourcesActivity.findViewById<RecyclerView>(R.id.rv_sources)
+////        assertNotNull(recyclerView)
+//    }
 }
