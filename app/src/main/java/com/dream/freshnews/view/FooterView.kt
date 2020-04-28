@@ -1,12 +1,11 @@
 package com.dream.freshnews.view
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.dream.freshnews.R
-import org.jetbrains.anko.find
-import org.jetbrains.anko.layoutInflater
 
 /**
  * Created by lixingming on 26/03/2018.
@@ -19,11 +18,14 @@ class FooterView(val context: Context) {
 
     fun getView(): View {
         if (this.view == null) {
-            view = context.layoutInflater.inflate(R.layout.load_more_footer_view, null)
-            progressBar = view?.find(R.id.pb_load_more)!!
+            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as
+                    LayoutInflater
+            view = inflater.inflate(R.layout
+                .load_more_footer_view, null)
+            progressBar = view?.findViewById(R.id.pb_load_more)!!
             progressBar.visibility = View.GONE
 
-            textView = view?.find(R.id.tv_info)!!
+            textView = view?.findViewById(R.id.tv_info)!!
         }
         return view!!
     }
