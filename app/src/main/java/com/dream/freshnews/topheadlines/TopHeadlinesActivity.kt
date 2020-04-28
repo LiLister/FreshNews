@@ -4,15 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dream.freshnews.BaseActivity
-import com.dream.freshnews.GlideApp
 import com.dream.freshnews.R
 import com.dream.freshnews.data.TopHeadline
 import com.dream.freshnews.data.source.NewsRepository
@@ -22,7 +22,7 @@ import com.dream.freshnews.data.source.NewsRepository.Companion.KEY_SOURCE
 import com.dream.freshnews.data.source.local.NewsLocalDataSource
 import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
 import com.dream.freshnews.util.DateTimeUtil
-import com.dream.freshnews.util.DialogHelper
+//import com.dream.freshnews.util.DialogHelper
 import com.dream.freshnews.view.FooterView
 import com.dream.freshnews.view.LoadingState
 import com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout
@@ -51,7 +51,7 @@ class TopHeadlinesActivity : BaseActivity() {
         loadData()
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         val position = (rv_top_headlines.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
         // force the RecycyclerView to redraw its items
         rv_top_headlines.adapter = topHeadinesAdapter
@@ -66,7 +66,8 @@ class TopHeadlinesActivity : BaseActivity() {
 
         topHeadinesAdapter = TopHeadinesAdapter(this)
 
-        rv_top_headlines.layoutManager = LinearLayoutManager(this)
+        rv_top_headlines.layoutManager =
+            LinearLayoutManager(this)
         rv_top_headlines.adapter = topHeadinesAdapter
 
         swipe_refresh.setOnPullRefreshListener(object : SuperSwipeRefreshLayout.OnPullRefreshListener {
@@ -117,11 +118,11 @@ class TopHeadlinesActivity : BaseActivity() {
                 footerView.updateState(LoadingState.LS_LOADED)
 
                 if (!ok) {
-                    DialogHelper.showSimpleInfoDialog(
-                        this.fragmentManager, resources.getString(
-                            R.string.failed_to_load_top_headlines, "" + errMsg
-                        )
-                    )
+//                    DialogHelper.showSimpleInfoDialog(
+//                        this.supportFragmentManager, resources.getString(
+//                            R.string.failed_to_load_top_headlines, "" + errMsg
+//                        )
+//                    )
                 } else {
                     if (pageNo == 1) {
                         topHeadinesAdapter.setData(data)
@@ -211,10 +212,10 @@ class TopHeadinesAdapter(private val context: Context) : RecyclerView.Adapter<Re
             // format date
             tvPublishedDay.text = DateTimeUtil.toLocalDateTime(data.publishedAt)
 
-            GlideApp.with(context)
+            Glide.with(context)
                 .load(data.urlToImage)
-                .placeholder(R.drawable.placeholder)
                 .into(ivThumbnail)
+//                .placeholder(R.drawable.placeholder)
         }
     }
 }

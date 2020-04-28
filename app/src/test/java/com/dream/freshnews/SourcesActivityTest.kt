@@ -1,6 +1,6 @@
 package com.dream.freshnews
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.dream.freshnews.data.source.local.NewsLocalDataSource
 import com.dream.freshnews.sources.SourcesActivity
 import org.junit.Assert.assertEquals

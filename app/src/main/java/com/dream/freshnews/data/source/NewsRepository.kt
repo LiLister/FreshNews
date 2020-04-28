@@ -11,15 +11,15 @@ import com.dream.freshnews.util.NetworkStateUtil
  */
 
 class NewsRepository private constructor() : NewsDataSource {
-    private lateinit var newsLocalDataSource: NewsLocalDataSource
+    private var newsLocalDataSource: NewsLocalDataSource? = null
     private lateinit var newsRemoteDataSource: NewsRemoteDataSource
 
     override fun clearCachedSources() {
-        newsLocalDataSource.clearCachedSources()
+        newsLocalDataSource?.clearCachedSources()
     }
 
     override fun getSources(callback: MyCallback<List<Source>>) {
-        newsLocalDataSource.getSources({
+        newsLocalDataSource?.getSources({
             ok, errorMsg, data ->
             if (ok && !data.isEmpty()) {
                 callback(ok, errorMsg, data)
@@ -28,7 +28,7 @@ class NewsRepository private constructor() : NewsDataSource {
                     rdsOk, rdsErrMsg, rdsData ->
                     // cache the sources to local data source
                     if (rdsOk && !rdsData.isEmpty()) {
-                        newsLocalDataSource.updateListSource(rdsData)
+                        newsLocalDataSource?.updateListSource(rdsData)
                     }
 
                     callback(rdsOk, rdsErrMsg, rdsData)
@@ -40,7 +40,7 @@ class NewsRepository private constructor() : NewsDataSource {
     }
 
     override fun getTopHeadlines(params: Map<String, String>, callback: MyCallback<List<TopHeadline>>) {
-        newsLocalDataSource.getTopHeadlines(params
+        newsLocalDataSource?.getTopHeadlines(params
         ) {
                 ok, errMsg, data ->
             if (ok && !data.isEmpty()) {
@@ -68,7 +68,7 @@ class NewsRepository private constructor() : NewsDataSource {
         private var mInstance: NewsRepository = NewsRepository()
 
         fun getInstance(localDataSource: NewsLocalDataSource, remoteDataSource: NewsRemoteDataSource): NewsRepository {
-            if (!mInstance::newsLocalDataSource.isInitialized) {
+            if (mInstance::newsLocalDataSource == null) {
                 mInstance.newsLocalDataSource = localDataSource
                 mInstance.newsRemoteDataSource = remoteDataSource
             }

@@ -17,7 +17,7 @@ import retrofit2.Response
 class NewsRemoteDataSource : NewsDataSource {
 
     private val KEY_API_KEY = "apiKey"
-    private val API_KEY = "9b420ed5b1f8456282aefde448c51351"
+    private val API_KEY = "e8c656150e28421cb61256fadca26528"
     private val END_POINT = "https://newsapi.org"
 
     private lateinit var newsApi: NewsApi

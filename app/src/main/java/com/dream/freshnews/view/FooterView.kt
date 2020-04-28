@@ -13,19 +13,19 @@ import org.jetbrains.anko.layoutInflater
  */
 class FooterView(val context: Context) {
 
-    private lateinit var view: View
+    private var view: View? = null
     private lateinit var progressBar: ProgressBar
     private lateinit var textView: TextView
 
     fun getView(): View {
-        if (!::view.isInitialized) {
+        if (this::view == null) {
             view = context.layoutInflater.inflate(R.layout.load_more_footer_view, null)
-            progressBar = view.find(R.id.pb_load_more)
+            progressBar = view?.find(R.id.pb_load_more)!!
             progressBar.visibility = View.GONE
 
-            textView = view.find(R.id.tv_info)
+            textView = view?.find(R.id.tv_info)!!
         }
-        return view
+        return view!!
     }
 
     fun updateState(loadingState: LoadingState) {
