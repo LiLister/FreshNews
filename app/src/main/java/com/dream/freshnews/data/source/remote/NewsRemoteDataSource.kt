@@ -18,9 +18,9 @@ class NewsRemoteDataSource : NewsDataSource {
 
     private val KEY_API_KEY = "apiKey"
     private val API_KEY = "e8c656150e28421cb61256fadca26528"
-    private val END_POINT = "https://newsapi.org"
+    private val END_POINT = "http://newsapi.org"
 
-    private lateinit var newsApi: NewsApi
+    private var newsApi: NewsApi
 
     init {
         newsApi = ApiCreator.instance().createApi(NewsApi::class.java, END_POINT)

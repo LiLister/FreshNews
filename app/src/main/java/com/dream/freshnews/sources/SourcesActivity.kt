@@ -14,6 +14,7 @@ import com.dream.freshnews.data.source.NewsRepository
 import com.dream.freshnews.data.source.local.NewsLocalDataSource
 import com.dream.freshnews.data.source.remote.NewsRemoteDataSource
 import com.dream.freshnews.topheadlines.TopHeadlinesActivity
+import com.dream.freshnews.util.MyInjectionUtil
 //import com.dream.freshnews.util.DialogHelper
 //import com.dream.freshnews.util.MyInjectionUtil
 import kotlinx.android.synthetic.main.activity_sources.*
@@ -21,9 +22,7 @@ import kotlinx.android.synthetic.main.activity_sources.*
 class SourcesActivity : BaseActivity() {
 
     private lateinit var sourceAdapter: SourceAdapter
-    private val newsRepository: NewsDataSource by lazy {
-        NewsRepository.getInstance(NewsLocalDataSource(), NewsRemoteDataSource())
-    }
+    private val newsRepository = NewsRepository.getInstance(NewsLocalDataSource(), NewsRemoteDataSource())//MyInjectionUtil.newsRepository
 //        MyInjectionUtil.newsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {

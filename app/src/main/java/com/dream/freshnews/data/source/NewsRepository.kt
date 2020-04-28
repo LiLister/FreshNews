@@ -68,7 +68,7 @@ class NewsRepository private constructor() : NewsDataSource {
         private var mInstance: NewsRepository = NewsRepository()
 
         fun getInstance(localDataSource: NewsLocalDataSource, remoteDataSource: NewsRemoteDataSource): NewsRepository {
-            if (mInstance::newsLocalDataSource == null) {
+            if (mInstance.newsLocalDataSource == null) {
                 mInstance.newsLocalDataSource = localDataSource
                 mInstance.newsRemoteDataSource = remoteDataSource
             }

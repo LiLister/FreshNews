@@ -18,7 +18,7 @@ class FooterView(val context: Context) {
     private lateinit var textView: TextView
 
     fun getView(): View {
-        if (this::view == null) {
+        if (this.view == null) {
             view = context.layoutInflater.inflate(R.layout.load_more_footer_view, null)
             progressBar = view?.find(R.id.pb_load_more)!!
             progressBar.visibility = View.GONE
