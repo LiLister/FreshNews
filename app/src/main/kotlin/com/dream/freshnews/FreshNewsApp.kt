@@ -13,10 +13,6 @@ class FreshNewsApp : Application() {
         instance = this
     }
 
-    fun onActivityPreDestroyed(activity: Activity): Unit {
-
-    }
-
     companion object {
         lateinit var instance: FreshNewsApp
     }

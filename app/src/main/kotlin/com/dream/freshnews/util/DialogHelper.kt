@@ -89,7 +89,7 @@ class CommonDialog : DialogFragment() {
         }
 
         builder.setPositiveButton(positiveButtonText) {
-            dialog, which ->
+            dialog, _ ->
             dialog.dismiss()
             positiveHandler?.invoke()
         }
