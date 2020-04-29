@@ -1,5 +1,6 @@
 package com.dream.freshnews
 
+import android.app.Activity
 import android.app.Application
 
 /**
@@ -10,6 +11,10 @@ class FreshNewsApp : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+    }
+
+    fun onActivityPreDestroyed(activity: Activity): Unit {
+
     }
 
     companion object {

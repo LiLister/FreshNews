@@ -10,7 +10,7 @@ object DateTimeUtil {
 
     fun toLocalDateTime(datetime: String, inputFormat: String = "yyyy-MM-dd'T'HH:mm:ss'Z'",
                         outputFormat: String = "yyyy-MM-dd HH:mm:ss"): String {
-        var result = ""
+        var result: String
         try {
             val inputDateFormater = SimpleDateFormat(inputFormat, Locale.US)
             inputDateFormater.timeZone = SimpleTimeZone(0, "UTC")
@@ -19,7 +19,7 @@ object DateTimeUtil {
 
             val date = inputDateFormater.parse(datetime)
 
-            result = outputDateFormater.format(date)
+            result = outputDateFormater.format(date!!)
         } catch (e: Exception) {
             result = if (datetime.length > 10) datetime.substring(0, 10) else ""
         }

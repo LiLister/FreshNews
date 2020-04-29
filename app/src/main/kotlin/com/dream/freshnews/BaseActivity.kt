@@ -1,14 +1,19 @@
 package com.dream.freshnews
 
 import android.annotation.TargetApi
-import android.app.ProgressDialog
 import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.dream.freshnews.util.debug
 
-open abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
+
+    lateinit var progressView: LinearLayout
+    lateinit var progressMsg: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +33,9 @@ open abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        pDialog?.hide()
-        pDialog = null
+        if (::progressView.isInitialized) {
+            progressView.visibility = View.GONE
+        }
 
         super.onPause()
     }
@@ -49,34 +55,26 @@ open abstract class BaseActivity : AppCompatActivity() {
         return this.isDestroyed
     }
 
-    private var pDialog: ProgressDialog? = null
+    open fun initProgressView() {
+        progressView = findViewById(R.id.progressView)
+        progressMsg = findViewById(R.id.progressMsg)
+    }
+
     open fun hideLoading() {
         if (!isActivityValid()) return
 
-        if (pDialog != null && pDialog!!.isShowing) {
-            try {
-                pDialog!!.dismiss()
-            } catch (e: Exception) {
-            }
+        if (::progressView.isInitialized) {
+            progressView.visibility = View.GONE
         }
     }
 
     open fun showLoading(msg: String = "Loading...") {
         if (!isActivityValid()) return
 
-        if (pDialog != null && pDialog!!.isShowing) {
-            pDialog!!.setMessage(msg)
-
-            return
+        if (::progressView.isInitialized) {
+            progressMsg.text = msg
+            progressMsg.visibility = if (msg.isBlank()) View.GONE else View.VISIBLE
+            progressView.visibility = View.VISIBLE
         }
-        if (pDialog == null) {
-            pDialog = ProgressDialog(this)
-            pDialog?.isIndeterminate = false
-            pDialog?.setCancelable(false)
-            pDialog?.setCanceledOnTouchOutside(false)
-        }
-        pDialog?.setMessage(msg)
-
-        pDialog?.show()
     }
 }

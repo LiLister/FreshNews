@@ -17,4 +17,6 @@
 
     </com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout>
 
+    <include layout="@layout/progress_view"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

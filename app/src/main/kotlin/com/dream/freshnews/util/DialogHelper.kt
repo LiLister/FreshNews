@@ -95,7 +95,7 @@ class CommonDialog : DialogFragment() {
         }
 
         if (needCancel) {
-            builder.setNeutralButton(negativeButtonText) { dialog, which ->
+            builder.setNeutralButton(negativeButtonText) { dialog, _ ->
                 dialog.dismiss()
                 negativeHandler?.invoke()
             }

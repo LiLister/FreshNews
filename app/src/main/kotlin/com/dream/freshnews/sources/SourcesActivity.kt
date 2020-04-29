@@ -13,20 +13,24 @@ import com.dream.freshnews.topheadlines.TopHeadlinesActivity
 import com.dream.freshnews.util.DialogHelper
 import com.dream.freshnews.util.MyInjectionUtil
 import kotlinx.android.synthetic.main.activity_sources.*
+import kotlinx.android.synthetic.main.progress_view.*
 
 class SourcesActivity : BaseActivity() {
 
     private lateinit var sourceAdapter: SourceAdapter
     private val newsRepository = MyInjectionUtil.newsRepository
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sources)
 
+        initProgressView()
+
         title = "News Sources"
 
         sourceAdapter = SourceAdapter(this)
-        sourceAdapter.setOnItemClick { position, source ->
+        sourceAdapter.setOnItemClick { _, source ->
             TopHeadlinesActivity.startMe(this@SourcesActivity, source.id)
         }
 
@@ -53,7 +57,11 @@ class SourcesActivity : BaseActivity() {
             }
         }
 
-        return super.onOptionsItemSelected(item)
+        if (item != null) {
+            return super.onOptionsItemSelected(item)
+        }
+
+        return true
     }
 
     private fun loadData() {

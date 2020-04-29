@@ -43,11 +43,13 @@ class TopHeadlinesActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_top_headlines)
 
+        initProgressView()
+
         title = "Top Headlines"
 
         initViews()
 
-        source = intent.getStringExtra(KEY_SOURCE_NAME)
+        source = intent.getStringExtra(KEY_SOURCE_NAME)!!
 
         loadData()
     }
