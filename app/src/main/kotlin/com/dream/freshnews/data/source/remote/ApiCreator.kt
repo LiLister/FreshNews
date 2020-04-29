@@ -2,24 +2,12 @@ package com.dream.freshnews.data.source.remote
 
 import com.dream.freshnews.BuildConfig
 import com.dream.freshnews.FreshNewsApp
-import com.dream.freshnews.R
 import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.BufferedInputStream
-import java.security.KeyStore
-import java.security.KeyStoreException
-import java.security.cert.Certificate
-import java.security.cert.CertificateException
-import java.security.cert.CertificateFactory
-import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.SSLContext
-import javax.net.ssl.SSLSocketFactory
-import javax.net.ssl.TrustManagerFactory
-import javax.net.ssl.X509TrustManager
 
 /**
  * Created by lixingming on 24/03/2018.

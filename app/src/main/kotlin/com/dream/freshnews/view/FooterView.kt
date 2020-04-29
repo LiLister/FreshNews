@@ -23,7 +23,7 @@ class FooterView(val viewGroup: ViewGroup) {
                 .LAYOUT_INFLATER_SERVICE) as
                     LayoutInflater
             view = inflater.inflate(R.layout
-                .load_more_footer_view, null)
+                .load_more_footer_view, viewGroup, false)
             progressBar = view?.findViewById(R.id.pb_load_more)!!
             progressBar.visibility = View.GONE
 
