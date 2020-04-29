@@ -11,5 +11,6 @@
     <string name="load_more_enabled">release to load more…</string>
     <string name="load_more_loading">loading…</string>
     <string name="load_more_loaded">load finished</string>
+    <string name="progress_default_message">Loading…</string>
 
 </resources>

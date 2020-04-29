@@ -12,8 +12,8 @@ import com.dream.freshnews.util.debug
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    lateinit var progressView: LinearLayout
-    lateinit var progressMsg: TextView
+    private lateinit var progressView: LinearLayout
+    private lateinit var progressMsg: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

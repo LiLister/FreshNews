@@ -16,7 +16,7 @@ import org.robolectric.shadows.ShadowLog
  */
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk= intArrayOf(22))
+@Config(sdk= [22])
 //@Config(constants = BuildConfig::class)
 
 class SourcesActivityTest {

@@ -108,7 +108,7 @@ class SourceAdapter(private val context: Context) : RecyclerView.Adapter<Recycle
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val data = mData.get(position)
+        val data = mData[position]
         (holder as ViewHolder).bindView(data, position)
 
         holder.itemView.setOnClickListener {

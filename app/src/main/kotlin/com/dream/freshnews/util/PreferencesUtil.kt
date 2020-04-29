@@ -13,7 +13,7 @@ object PreferencesUtil {
     private var sp: SharedPreferences = FreshNewsApp.instance.applicationContext
         .getSharedPreferences("FreshNews", Context.MODE_PRIVATE)
 
-    private val KEY_SOURCES = "sources"
+    private const val KEY_SOURCES = "sources"
 
     fun getSources(): String? {
         return getString(KEY_SOURCES)
@@ -57,7 +57,7 @@ object PreferencesUtil {
         if (value == null) {
             cachedData.remove(key)
         } else {
-            cachedData.put(key, value)
+            cachedData[key] = value
         }
     }
 }

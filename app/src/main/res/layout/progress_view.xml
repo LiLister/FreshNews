@@ -28,7 +28,7 @@
         android:layout_gravity="center_horizontal"
         android:paddingTop="8dp"
         android:paddingBottom="12dp"
-        android:text="Loading..."
+        android:text="@string/progress_default_message"
         android:visibility="visible" />
 </LinearLayout>
 

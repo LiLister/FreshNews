@@ -51,7 +51,7 @@ class NewsRemoteDataSource : NewsDataSource {
 
         val parameters = mutableMapOf<String, String>()
         parameters.putAll(params)
-        parameters.put(KEY_API_KEY, API_KEY)
+        parameters[KEY_API_KEY] = API_KEY
 
         newsApi.getTopHeadlines(parameters).enqueue(object : Callback<TopHeadlinesResponse> {
             override fun onFailure(call: Call<TopHeadlinesResponse>?, t: Throwable?) {

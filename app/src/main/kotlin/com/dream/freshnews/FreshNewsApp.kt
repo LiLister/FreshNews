@@ -10,6 +10,7 @@ import com.dream.freshnews.util.NetworkStateUtil
  */
 class FreshNewsApp : Application() {
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate() {
         super.onCreate()
         instance = this

@@ -19,22 +19,23 @@ class NewsRepository private constructor() : NewsDataSource {
     }
 
     override fun getSources(callback: MyCallback<List<Source>>) {
-        newsLocalDataSource?.getSources({ ok, errorMsg, data ->
-            if (ok && !data.isEmpty()) {
+        newsLocalDataSource?.getSources { ok, errorMsg, data ->
+
+            if (ok && data.isNotEmpty()) {
                 callback(ok, errorMsg, data)
             } else if (NetworkStateUtil.isConnected()) {
-                newsRemoteDataSource.getSources({ rdsOk, rdsErrMsg, rdsData ->
+                newsRemoteDataSource.getSources { rdsOk, rdsErrMsg, rdsData ->
                     // cache the sources to local data source
-                    if (rdsOk && !rdsData.isEmpty()) {
+                    if (rdsOk && rdsData.isNotEmpty()) {
                         newsLocalDataSource?.updateListSource(rdsData)
                     }
 
                     callback(rdsOk, rdsErrMsg, rdsData)
-                })
+                }
             } else {
                 callback(false, "Network connection not available", listOf())
             }
-        })
+        }
     }
 
     override fun getTopHeadlines(
@@ -44,12 +45,12 @@ class NewsRepository private constructor() : NewsDataSource {
         newsLocalDataSource?.getTopHeadlines(
             params
         ) { ok, errMsg, data ->
-            if (ok && !data.isEmpty()) {
+            if (ok && data.isNotEmpty()) {
                 callback(ok, errMsg, data)
             } else if (NetworkStateUtil.isConnected()) {
                 newsRemoteDataSource.getTopHeadlines(params) { rdsOk, rdsErrMsg, rdsData ->
 
-                    if (rdsOk && !rdsData.isEmpty()) {
+                    if (rdsOk && rdsData.isNotEmpty()) {
                         // TODO cache the top headlines to local data source
                     }
 
@@ -62,9 +63,9 @@ class NewsRepository private constructor() : NewsDataSource {
     }
 
     companion object {
-        val KEY_SOURCE = "sources"
-        val KEY_PAGE_SIZE = "pageSize"
-        val KEY_PAGE = "page"
+        const val KEY_SOURCE = "sources"
+        const val KEY_PAGE_SIZE = "pageSize"
+        const val KEY_PAGE = "page"
 
         private var mInstance: NewsRepository = NewsRepository()
 

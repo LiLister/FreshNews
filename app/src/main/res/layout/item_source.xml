@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/list_item_title_height"
             android:textSize="@dimen/list_item_title_font_size"
-            android:textColor="@color/black"
+            android:textColor="@android:color/black"
             />
         <TextView
             android:id="@+id/tv_description"

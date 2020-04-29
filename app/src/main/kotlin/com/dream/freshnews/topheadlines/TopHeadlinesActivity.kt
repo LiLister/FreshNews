@@ -66,7 +66,7 @@ class TopHeadlinesActivity : BaseActivity() {
     }
 
     private fun initViews() {
-        footerView = FooterView(this)
+        footerView = FooterView(swipe_refresh)
 
         topHeadinesAdapter = TopHeadinesAdapter(this)
 
@@ -143,15 +143,15 @@ class TopHeadlinesActivity : BaseActivity() {
 
     private fun constructParameters(): Map<String, String> {
         val result = mutableMapOf<String, String>()
-        result.put(KEY_SOURCE, source)
-        result.put(KEY_PAGE_SIZE, pageSize.toString())
-        result.put(KEY_PAGE, pageNo.toString())
+        result[KEY_SOURCE] = source
+        result[KEY_PAGE_SIZE] = pageSize.toString()
+        result[KEY_PAGE] = pageNo.toString()
 
         return result
     }
 
     companion object {
-        val KEY_SOURCE_NAME = "SOURCE_NAME"
+        const val KEY_SOURCE_NAME = "SOURCE_NAME"
         fun startMe(context: Context, source: String) {
             val intent = Intent()
             intent.putExtra(KEY_SOURCE_NAME, source)
@@ -194,7 +194,7 @@ class TopHeadinesAdapter(private val context: Context) : RecyclerView.Adapter<Re
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val data = mData.get(position)
+        val data = mData[position]
         (holder as ViewHolder).bindView(context, data, position)
 
         holder.itemView.setOnClickListener {
@@ -218,6 +218,7 @@ class TopHeadinesAdapter(private val context: Context) : RecyclerView.Adapter<Re
 
             val requestOptions = RequestOptions()
             requestOptions.placeholder(R.drawable.placeholder)
+
             Glide.with(context)
                 .setDefaultRequestOptions(requestOptions)
                 .load(data.urlToImage)
