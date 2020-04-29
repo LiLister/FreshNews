@@ -13,7 +13,6 @@ import com.dream.freshnews.topheadlines.TopHeadlinesActivity
 import com.dream.freshnews.util.DialogHelper
 import com.dream.freshnews.util.MyInjectionUtil
 import kotlinx.android.synthetic.main.activity_sources.*
-import kotlinx.android.synthetic.main.progress_view.*
 
 class SourcesActivity : BaseActivity() {
 

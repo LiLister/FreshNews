@@ -19,13 +19,11 @@ class NewsRepository private constructor() : NewsDataSource {
     }
 
     override fun getSources(callback: MyCallback<List<Source>>) {
-        newsLocalDataSource?.getSources({
-            ok, errorMsg, data ->
+        newsLocalDataSource?.getSources({ ok, errorMsg, data ->
             if (ok && !data.isEmpty()) {
                 callback(ok, errorMsg, data)
             } else if (NetworkStateUtil.isConnected()) {
-                newsRemoteDataSource.getSources({
-                    rdsOk, rdsErrMsg, rdsData ->
+                newsRemoteDataSource.getSources({ rdsOk, rdsErrMsg, rdsData ->
                     // cache the sources to local data source
                     if (rdsOk && !rdsData.isEmpty()) {
                         newsLocalDataSource?.updateListSource(rdsData)
@@ -39,10 +37,13 @@ class NewsRepository private constructor() : NewsDataSource {
         })
     }
 
-    override fun getTopHeadlines(params: Map<String, String>, callback: MyCallback<List<TopHeadline>>) {
-        newsLocalDataSource?.getTopHeadlines(params
-        ) {
-                ok, errMsg, data ->
+    override fun getTopHeadlines(
+        params: Map<String, String>,
+        callback: MyCallback<List<TopHeadline>>
+    ) {
+        newsLocalDataSource?.getTopHeadlines(
+            params
+        ) { ok, errMsg, data ->
             if (ok && !data.isEmpty()) {
                 callback(ok, errMsg, data)
             } else if (NetworkStateUtil.isConnected()) {
@@ -67,7 +68,10 @@ class NewsRepository private constructor() : NewsDataSource {
 
         private var mInstance: NewsRepository = NewsRepository()
 
-        fun getInstance(localDataSource: NewsLocalDataSource, remoteDataSource: NewsRemoteDataSource): NewsRepository {
+        fun getInstance(
+            localDataSource: NewsLocalDataSource,
+            remoteDataSource: NewsRemoteDataSource
+        ): NewsRepository {
             if (mInstance.newsLocalDataSource == null) {
                 mInstance.newsLocalDataSource = localDataSource
                 mInstance.newsRemoteDataSource = remoteDataSource
